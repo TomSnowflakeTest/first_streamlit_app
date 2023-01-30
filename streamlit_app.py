@@ -21,7 +21,6 @@ my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.co
 my_fruit_list = my_fruit_list.set_index('Fruit')
 
 # Let's put a pick list here so they can pick the fruit they want to include 
-
 fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index))
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 
@@ -62,10 +61,9 @@ if streamlit.button('Get Fruit Load List'):
     streamlit.dataframe(my_data_rows)
 
 # Allow end user to add fruit to the list
-
 def insert_row_snwoflake(new_fruit):
   with my_cnx.cursor() as cur:
-    my_cur.execute("inert into fruit_load_list_values ('from streamlit')")
+    my_cur.execute("insert into fruit_load_list_values ('" + new_fruit +"')")
     return "Thanks for adding " + new_fruit
                                          
 add_my_fruit = streamlit.text_input('What fruit would you like to add?')
